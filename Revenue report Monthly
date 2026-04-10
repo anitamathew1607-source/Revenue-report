@@ -5,3 +5,27 @@ SELECT
   revenue
 FROM orders
 WHERE status = 'completed'
+  AND order_date >= '2024-01-01'
+  AND revenue > 0
+
+SELECT
+  DATE_TRUNC('month', order_date) AS month,
+  COUNT(order_id)                 AS total_orders,
+  SUM(revenue)                    AS total_revenue
+FROM orders
+WHERE status = 'completed'
+  AND order_date >= '2024-01-01'
+GROUP BY 1
+ORDER BY 1
+
+SELECT
+  r.region_name,
+  DATE_TRUNC('month', o.order_date) AS month,
+  COUNT(o.order_id)                 AS total_orders,
+  SUM(o.revenue)                    AS total_revenue
+FROM orders o
+JOIN regions r ON o.region_id = r.region_id
+WHERE o.status = 'completed'
+  AND o.order_date >= '2024-01-01'
+GROUP BY 1, 2
+ORDER BY 1, 2
