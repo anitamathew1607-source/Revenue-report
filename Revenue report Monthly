@@ -1,0 +1,7 @@
+-- Base revenue query
+SELECT
+  order_id,
+  customer_id,
+  revenue
+FROM orders
+WHERE status = 'completed'
